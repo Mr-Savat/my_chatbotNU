@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Norton University Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark-bg': '#000000',
+            'dark-card': '#1a1a1a',
+            'dark-border': '#333333',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+
+
+.color-changing-title {
+    background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: color-change 3s ease-in-out infinite;
+}
+
+.color-changing-subtitle {
+    color: #6b7280;
+    animation: subtitle-color 4s ease-in-out infinite;
+}
+
+@keyframes color-change {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes subtitle-color {
+    0%, 100% { color: #6b7280; }
+    25% { color: #8b5cf6; }
+    50% { color: #06b6d4; }
+    75% { color: #10b981; }
+}
+    @keyframes pulse {0%,100%{opacity:1;}50%{opacity:.5;}}
+    @keyframes fadeIn {from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes typing {0%,60%,100%{transform:translateY(0);opacity:.4;}30%{transform:translateY(-10px);opacity:1;}}
+
+    .pulse {animation:pulse 2s infinite;}
+    .fade-in {animation:fadeIn .3s ease-in;}
+    .typing-dot {animation:typing 1.4s infinite;}
+    .typing-dot:nth-child(2){animation-delay:.2s;}
+    .typing-dot:nth-child(3){animation-delay:.4s;}
+
+    * {scrollbar-width:none;-ms-overflow-style:none;}
+    *::-webkit-scrollbar {display:none;}
+    body {overflow-x:hidden;}
+    .custom-scrollbar {overflow-y:auto;}
+
+
+
+    /* Enhanced Mobile Styles */
+    @media (max-width: 768px) {
+      .mobile-welcome {
+        padding: 2rem 1rem !important;
+        text-align: center;
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .mobile-title {
+        font-size: 2rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 1rem !important;
+        padding: 0 1rem;
+        word-wrap: break-word;
+        hyphens: auto;
+      }
+      
+      .mobile-subtitle {
+        font-size: 1rem !important;
+        margin-top: 0.5rem !important;
+        padding: 0 1rem;
+        line-height: 1.4;
+      }
+      
+      /* Adjust header for mobile */
+      .mobile-header {
+        padding: 0.75rem 1rem !important;
+      }
+      
+      .mobile-header h1 {
+        font-size: 1rem !important;
+      }
+      
+      .mobile-header img {
+        height: 1.5rem !important;
+      }
+      
+      /* Adjust chat container for mobile */
+      .mobile-chat-container {
+        padding-top: 4rem !important;
+        padding-bottom: 6rem !important;
+      }
+      
+      /* Input area mobile adjustments */
+      .mobile-input {
+        padding: 1rem !important;
+      }
+      
+      .mobile-input input {
+        font-size: 16px !important; /* Prevents zoom on iOS */
+        padding: 0.75rem 1rem 0.75rem 1.5rem !important;
+      }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      .mobile-title {
+        font-size: 1.75rem !important;
+      }
+      
+      .mobile-subtitle {
+        font-size: 0.9rem !important;
+      }
+      
+      .mobile-welcome {
+        min-height: 50vh;
+        padding: 1.5rem 0.5rem !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-black min-h-screen text-white font-sans">
+  <!-- Header -->
+
+    <div class="fixed top-0 left-0 right-0 z-50 bg-black px-6 py-4 mobile-header flex items-center justify-between border-b border-gray-800">
+      <h1 class="text-xl font-medium flex items-center gap-2">
+        <img src="Logo/NTB-logo.png" alt="Norton Logo" class="h-8 w-auto">
+        <span class="hidden sm:inline">Norton University Assistant</span>
+        <span class="sm:hidden">Norton Assistant</span>
+      </h1>
+      
+        <p class="text-sm text-gray-400 flex items-center gap-2">
+            <span class="w-2 h-2 bg-green-500 rounded-full pulse"></span>
+            <span class="hidden sm:inline">Online</span>
+        </p>
+    </div>
+
+
+  <div class="h-[100vh] flex flex-col max-w-3xl mx-auto pt-16 pb-24 ​mobile-chat-container">
+
+
+    <!-- Chat Area -->
+    <div class="flex-1 flex flex-col">
+      <!-- Welcome Section -->
+      <div id="welcome-section" class="flex-1 flex flex-col items-center justify-center px-6 mobile-welcome">
+        <h2 class="text-4xl md:text-5xl mb-4 font-bold color-changing-title mobile-title">Welcome to Norton University</h2>         
+        <p class="text-lg color-changing-subtitle mobile-subtitle">Ask me anything about Norton University....</p>
+      </div>
+
+      <!-- Chat Box -->
+      <div id="chat-box" class="flex-1 overflow-y-auto px-6 py-4 mb-32 space-y-6 custom-scrollbar hidden "></div>
+
+      <!-- Typing Indicator -->
+      <div id="typing-indicator" class="hidden px-6 mb-32">
+        <div class="flex items-start space-x-3">
+          <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center"><img src="Logo/NTB-logo.png" alt="Norton Logo"></div>
+          <div class="bg-gray-800 rounded-2xl rounded-bl-md px-4 py-3 mb-32">
+            <div class="flex space-x-1">
+              <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+              <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+              <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="fixed bottom-0 left-0 right-0 bg-black p-6 mobile-input border-t border-gray-800 z-40">
+    <div class="max-w-3xl mx-auto relative">
+      <input 
+        type="text" id="question"
+        placeholder="Ask Norton University Assistant..."
+        class="w-full px-6 py-4 pr-16 bg-gray-900 border border-gray-700 rounded-full 
+               text-white placeholder-gray-500 focus:outline-none focus:ring-2 
+               focus:ring-blue-500 transition-all 
+               overflow-hidden whitespace-nowrap text-ellipsis"
+        onkeypress="if(event.key==='Enter'){event.preventDefault();sendMessage();}"
+      >
+
+      <!-- Send Button -->
+      <button onclick="sendMessage()" id="send-btn"
+        class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex items-center justify-center text-gray-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

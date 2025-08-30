@@ -1,0 +1,23 @@
+pip install accelerate>=0.26.0
+
+
+
+
+
+
+
+
+
+python prepare_dataset.py
+python train_gpt2.py
+
+Use Gemini model (you can change to "gemini-1.5-pro" if needed)
+
+
+python -m venv venv
+venv\Scripts\activate           # Windows
+pip install -r requirements.txt
+
+
+
+Bearer
