@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from faq_loader import load_faq, find_answer
-from groq_fallback import ask_groq
-from confidence import calculate_confidence
+from .faq_loader import load_faq, find_answer  
+from .groq_fallback import ask_groq              
+from .confidence import calculate_confidence   
 import os
 
 app = Flask(__name__)
